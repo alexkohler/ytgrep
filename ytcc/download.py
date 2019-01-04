@@ -61,22 +61,25 @@ class Download():
         temp_final = ''
         for caption in reader.read(output).get_captions('en-US'):
             stripped = self.remove_time_from_caption(
-                str(caption).replace(r'\n', "\n"))
+                str(caption).replace(r'\n', " "))
+            stripped += "\n"
             temp_final += stripped
 
-        final = ''
-        previous = ''
-        for line in temp_final.split("\n"):
-            if previous != line:
-                final += "\n" + line
-            previous = line
+        #print(temp_final)
 
-        return final.replace("\n", ' ')[1:]
+        #final = ''
+        #previous = ''
+        #for line in temp_final.split("\n"):
+        #    if previous != line:
+        #        final += "\n" + line
+        #    previous = line
+
+        return temp_final #final.replace("\n", ' ')[1:]
 
     def remove_time_from_caption(self, caption: str) -> str:
-        caption = caption[1:-1]
-        return re.sub(r"^.*?\n", "\n", caption)
-
+        # caption = caption[1:-1]
+        #return re.sub(r"^.*?\n", "\n", caption)
+        return caption
 
 class DownloadException(Exception):
 
