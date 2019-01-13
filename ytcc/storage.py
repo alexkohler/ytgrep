@@ -10,12 +10,9 @@ class Storage():
         self.video_id = video_id
 
     def get_file_path(self) -> str:
-        if re.search(r'[^\w-]', self.video_id):
-            raise ValueError(
-                'Invalid video id attempting to write to filesystem')
-
+        video_tag = self.video_id.split("?v=")[1]
         return 'subtitle_{0}.en.vtt'.format(
-            re.sub(r'[^\w-]', '', self.video_id))
+            re.sub(r'[^\w-]', '', video_tag))
 
     def remove_file(self) -> None:
         os.remove(self.get_file_path())
