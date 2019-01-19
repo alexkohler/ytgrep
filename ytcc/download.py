@@ -17,7 +17,8 @@ class Download():
         self.opts = {
             'skip_download': True,
             'writeautomaticsub': True,
-            'outtmpl': 'subtitle_%(id)s'
+            'outtmpl': 'subtitle_%(id)s',
+            'quiet': True,
         }
         self.opts.update(opts)
 
