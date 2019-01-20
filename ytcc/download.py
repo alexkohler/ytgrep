@@ -10,11 +10,11 @@ from colorama import Fore, Back, Style
 
 
 class Download():
-    url=''
-    search_query=''
-    regex=False
+    url = ''
+    search_query = ''
+    regex = False
 
-    def __init__(self, args : dict, opts: dict = {}) -> None:
+    def __init__(self, args: dict, opts: dict = {}) -> None:
         self.opts = {
             'skip_download': True,
             'writeautomaticsub': True,
@@ -24,10 +24,10 @@ class Download():
         }
         self.url = args['url']
         if args['e']:
-            self.regex=True
-            self.search_query= re.compile(args['pattern'])
+            self.regex = True
+            self.search_query = re.compile(args['pattern'])
         else:
-            self.search_query= args['pattern']
+            self.search_query = args['pattern']
         self.opts.update(opts)
 
     def get_captions(self, video_id: str) -> str:
@@ -44,10 +44,10 @@ class Download():
         storage.remove_file()
         return output
 
-    def get_result(self, video_id: str, search_query : str) -> int:
+    def get_result(self, video_id: str, search_query: str) -> int:
         with youtube_dl.YoutubeDL(self.opts) as ydl:
             try:
-                return ydl.download([video_id])#J
+                return ydl.download([video_id])  # J
             except youtube_dl.utils.DownloadError as err:
                 raise DownloadException(
                     "Unable to download captions: {0}".format(str(err)))
@@ -62,33 +62,35 @@ class Download():
     def get_captions_from_output(self, output: str, video_id: str) -> str:
         reader = WebVTTReader()
 
-        captions=[]
+        captions = []
         for caption in reader.read(output).get_captions('en-US'):
-            stripped = self.remove_time_from_caption(video_id, 
-                str(caption).replace(r'\n', " "))
+            stripped = self.remove_time_from_caption(
+                video_id, str(caption).replace(r'\n', " "))
             stripped += "\n"
             captions.append(stripped)
 
         return self.process_captions(captions)
 
-    
     def process_captions(self, captions):
         temp_final = ''
-        i=-1
+        i = -1
         for caption in captions:
-            i+=1
-            #TODO figure out whether case insensitivity is something you want to support  
-            stripped=caption.lower()
-            # temporarily remove time prefix via slicing (the time prefix is stable)
-            prefix=stripped[0:32]
-            stripped=stripped[32:]
+            i += 1
+            # TODO figure out whether case insensitivity is something you want
+            # to support
+            stripped = caption.lower()
+            # temporarily remove time prefix via slicing (the time prefix is
+            # stable)
+            prefix = stripped[0:32]
+            stripped = stripped[32:]
             # remove duplicate entries
 
             if self.regex:
-                l=self.search_query.findall(stripped)
+                l = self.search_query.findall(stripped)
                 if len(l) > 0:
                     for match in l:
-                        stripped=stripped.replace(match,  Fore.RED + match + Style.RESET_ALL)
+                        stripped = stripped.replace(
+                            match, Fore.RED + match + Style.RESET_ALL)
                         stripped = prefix + stripped
                         temp_final += stripped
 
@@ -98,20 +100,34 @@ class Download():
                 # [00:45:15.960 --> 00:45:15.970] will do this topological sort is what'
                 # [00:45:15.970 --> 00:45:20.430] will do this topological sort is what the selvam is usually called topological'
                 # so skip the original duplicate if we find a match like this. We trim and ignore quotes to avoid
-                # whitespace and quotes from stopping what would otherwise be a match
+                # whitespace and quotes from stopping what would otherwise be a
+                # match
 
-                if i < len(captions) - 1 and stripped.strip().replace("'", "").replace('"', '') in str(captions[i+1]).strip().replace("'", "").replace('"', ''):
+                if i < len(captions) - 1 and stripped.strip().replace("'",
+                                                                      "").replace('"',
+                                                                                  '') in str(captions[i + 1]).strip().replace("'",
+                                                                                                                              "").replace('"',
+                                                                                                                                          ''):
                     continue
-                stripped=stripped.replace(self.search_query,  Fore.RED + self.search_query + Style.RESET_ALL)
+                stripped = stripped.replace(
+                    self.search_query,
+                    Fore.RED +
+                    self.search_query +
+                    Style.RESET_ALL)
                 stripped = prefix + stripped
                 temp_final += stripped
 
-        return temp_final 
+        return temp_final
 
     def remove_time_from_caption(self, video_id: str, caption: str) -> str:
-        caption = re.sub(r"(\d{2}:\d{2}:\d{2}.\d{3} --> \d{2}:\d{2}:\d{2}.\d{3})", r"[\1]", caption, flags=re.DOTALL)
+        caption = re.sub(
+            r"(\d{2}:\d{2}:\d{2}.\d{3} --> \d{2}:\d{2}:\d{2}.\d{3})",
+            r"[\1]",
+            caption,
+            flags=re.DOTALL)
         # remove first char from string (will be a quote)
         return caption[1:]
+
 
 class DownloadException(Exception):
 

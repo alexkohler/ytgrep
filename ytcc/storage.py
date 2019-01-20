@@ -11,8 +11,8 @@ class Storage():
         self.video_url = video_url
 
     def get_file_path(self) -> str:
-        return 'subtitle_{0}.en.vtt'.format(
-            re.sub(r'[^\w-]', '', hashlib.md5(str(self.video_url).encode('utf-8')).hexdigest()))
+        return 'subtitle_{0}.en.vtt'.format(re.sub(
+            r'[^\w-]', '', hashlib.md5(str(self.video_url).encode('utf-8')).hexdigest()))
 
     def remove_file(self) -> None:
         os.remove(self.get_file_path())
