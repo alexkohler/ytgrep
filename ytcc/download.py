@@ -18,7 +18,7 @@ class Download():
         self.opts = {
             'skip_download': True,
             'writeautomaticsub': True,
-            'outtmpl': 'subtitle_' + hashlib.md5(str(args['url']).encode('utf-8')).hexdigest(),
+            'no_warnings': args['v'],
             # 'outtmpl': 'subtitle_%(id)s',
             'quiet': not args['v'],
         }
@@ -31,20 +31,22 @@ class Download():
         self.opts.update(opts)
 
     def get_captions(self, video_id: str) -> str:
-        result = self.get_result(video_id, self.search_query)
 
-        if result != 0:
-            raise Exception(
+        output = ''
+        for url in self.url:
+            result = self.get_result(url, self.search_query)
+            if result != 0:
+                raise Exception(
                 'Unable to download and extract captions: {0}'.format(result))
-
-        storage = Storage(self.url)
-        file_path = storage.get_file_path()
-        with open(file_path) as f:
-            output = self.get_captions_from_output(f.read(), video_id)
-        storage.remove_file()
+            storage = Storage(url)
+            file_path = storage.get_file_path()
+            with open(file_path) as f:
+                output += self.get_captions_from_output(f.read(), url)
+            storage.remove_file()
         return output
 
     def get_result(self, video_id: str, search_query: str) -> int:
+        self.opts['outtmpl'] = 'subtitle_' + hashlib.md5(str(video_id).encode('utf-8')).hexdigest()
         with youtube_dl.YoutubeDL(self.opts) as ydl:
             try:
                 return ydl.download([video_id])  # J
@@ -59,20 +61,23 @@ class Download():
                     "Unknown exception downloading and extracting captions: {0}".format(
                         str(err)))
 
-    def get_captions_from_output(self, output: str, video_id: str) -> str:
+    def get_captions_from_output(self, output: str, url: str) -> str:
         reader = WebVTTReader()
 
         captions = []
         for caption in reader.read(output).get_captions('en-US'):
             stripped = self.remove_time_from_caption(
-                video_id, str(caption).replace(r'\n', " "))
+                url, str(caption).replace(r'\n', " "))
             stripped += "\n"
             captions.append(stripped)
 
-        return self.process_captions(captions)
+        return self.process_captions(captions, url)
 
-    def process_captions(self, captions):
+    def process_captions(self, captions, url):
         temp_final = ''
+        # if we have multiple urls, print the URL at the beginning
+        if len(self.url) > 1:
+            temp_final = url + '\n'
         i = -1
         for caption in captions:
             i += 1
