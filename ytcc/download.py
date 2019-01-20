@@ -19,7 +19,6 @@ class Download():
             'skip_download': True,
             'writeautomaticsub': True,
             'no_warnings': args['v'],
-            # 'outtmpl': 'subtitle_%(id)s',
             'quiet': not args['v'],
         }
         self.url = args['url']
