@@ -37,7 +37,7 @@ class Download():
             result = self.get_result(url, self.search_query)
             if result != 0:
                 raise Exception(
-                'Unable to download and extract captions: {0}'.format(result))
+                    'Unable to download and extract captions: {0}'.format(result))
             storage = Storage(url)
             file_path = storage.get_file_path()
             with open(file_path) as f:
@@ -46,7 +46,8 @@ class Download():
         return output
 
     def get_result(self, video_id: str, search_query: str) -> int:
-        self.opts['outtmpl'] = 'subtitle_' + hashlib.md5(str(video_id).encode('utf-8')).hexdigest()
+        self.opts['outtmpl'] = 'subtitle_' + \
+            hashlib.md5(str(video_id).encode('utf-8')).hexdigest()
         with youtube_dl.YoutubeDL(self.opts) as ydl:
             try:
                 return ydl.download([video_id])  # J
