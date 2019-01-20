@@ -22,7 +22,6 @@ args_dict = vars(args)
 
 # TODO case insensitivity?
 # TODO validate URL passed in
-# TODO help string
 
 video_id = args.url
 download = Download(args_dict)
