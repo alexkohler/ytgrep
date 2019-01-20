@@ -2,17 +2,17 @@
 
 import re
 import os
+import hashlib
 
 
 class Storage():
 
-    def __init__(self, video_id: str) -> None:
-        self.video_id = video_id
+    def __init__(self, video_url: str) -> None:
+        self.video_url = video_url
 
     def get_file_path(self) -> str:
-        video_tag = self.video_id.split("?v=")[1]
         return 'subtitle_{0}.en.vtt'.format(
-            re.sub(r'[^\w-]', '', video_tag))
+            re.sub(r'[^\w-]', '', hashlib.md5(str(self.video_url).encode('utf-8')).hexdigest()))
 
     def remove_file(self) -> None:
         os.remove(self.get_file_path())
