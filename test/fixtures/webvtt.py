@@ -28,7 +28,7 @@ even a sexy Einstein.
 
 00:33.666 --> 00:38.138
 ACTOR AS EINSTEIN:
-What would I see if I rode
+What light would I see if I rode
 on a beam of light?
 """
 

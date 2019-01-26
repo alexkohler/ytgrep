@@ -10,9 +10,10 @@ from colorama import Fore, Back, Style
 
 
 class Download():
-    url = ''
+    urls = []
     search_query = ''
     regex = False
+    include_links = False
 
     def __init__(self, args: dict, opts: dict = {}) -> None:
         self.opts = {
@@ -21,18 +22,21 @@ class Download():
             'no_warnings': args['v'],
             'quiet': not args['v'],
         }
-        self.url = args['url']
+        self.urls = args['urls']
         if args['e']:
             self.regex = True
             self.search_query = re.compile(args['pattern'])
         else:
             self.search_query = args['pattern']
         self.opts.update(opts)
+       
+        if args.get('links'): 
+            self.include_links = True
 
-    def get_captions(self, video_id: str) -> str:
+    def get_captions(self) -> str:
 
         output = ''
-        for url in self.url:
+        for url in self.urls:
             result = self.get_result(url, self.search_query)
             if result != 0:
                 raise Exception(
@@ -73,10 +77,15 @@ class Download():
 
         return self.process_captions(captions, url)
 
+    def get_time_url(self, url, time_str):
+        h, m, s = time_str.split(':')
+        seconds=str(int(h) * 3600 + int(m) * 60 + int(s))
+        return url + '&t=' + str(seconds) + 's'
+
     def process_captions(self, captions, url):
         temp_final = ''
         # if we have multiple urls, print the URL at the beginning
-        if len(self.url) > 1:
+        if len(self.urls) > 1:
             temp_final = url + '\n'
         i = -1
         for caption in captions:
@@ -94,10 +103,16 @@ class Download():
                 l = self.search_query.findall(stripped)
                 if len(l) > 0:
                     for match in l:
-                        stripped = stripped.replace(
-                            match, Fore.RED + match + Style.RESET_ALL)
-                        stripped = prefix + stripped
-                        temp_final += stripped
+                        if Fore.RED + match + Style.RESET_ALL not in stripped:
+                            stripped = stripped.replace(
+                                match, Fore.RED + match + Style.RESET_ALL)
+                            stripped = stripped.replace("'", "").strip()
+                    stripped = prefix + stripped
+                    if self.include_links:
+                        start_time = prefix[1:9]
+                        time_url = self.get_time_url(url, start_time)
+                        stripped = stripped.rstrip() + ' (' + time_url + ')\n'
+                    temp_final += stripped
 
             elif self.search_query in stripped:
 
@@ -114,12 +129,17 @@ class Download():
                                                                                                                               "").replace('"',
                                                                                                                                           ''):
                     continue
+                stripped = stripped.replace("'", "").strip()
                 stripped = stripped.replace(
                     self.search_query,
                     Fore.RED +
                     self.search_query +
                     Style.RESET_ALL)
                 stripped = prefix + stripped
+                if self.include_links:
+                    start_time = prefix[1:9]
+                    time_url = self.get_time_url(url, start_time)
+                    stripped = stripped.rstrip() + ' (' + time_url + ')\n'
                 temp_final += stripped
 
         return temp_final
