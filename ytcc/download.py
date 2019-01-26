@@ -29,8 +29,8 @@ class Download():
         else:
             self.search_query = args['pattern']
         self.opts.update(opts)
-       
-        if args.get('links'): 
+
+        if args.get('links'):
             self.include_links = True
 
     def get_captions(self) -> str:
@@ -79,7 +79,7 @@ class Download():
 
     def get_time_url(self, url, time_str):
         h, m, s = time_str.split(':')
-        seconds=str(int(h) * 3600 + int(m) * 60 + int(s))
+        seconds = str(int(h) * 3600 + int(m) * 60 + int(s))
         return url + '&t=' + str(seconds) + 's'
 
     def process_captions(self, captions, url):
