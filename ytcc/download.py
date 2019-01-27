@@ -46,6 +46,10 @@ class Download():
             with open(file_path) as f:
                 output += self.get_captions_from_output(f.read(), url)
             storage.remove_file()
+
+        # remove final newline
+        if len(output) > 0 and output[-1] == '\n':
+            output = output[:-1] 
         return output
 
     def get_result(self, video_id: str, search_query: str) -> int:
@@ -140,7 +144,7 @@ class Download():
                     start_time = prefix[1:9]
                     time_url = self.get_time_url(url, start_time)
                     stripped = stripped.rstrip() + ' (' + time_url + ')\n'
-                temp_final += stripped
+                temp_final += stripped + '\n'
 
         return temp_final
 

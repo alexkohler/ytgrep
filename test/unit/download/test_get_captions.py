@@ -43,7 +43,7 @@ class TestCaptions(unittest.TestCase):
                 'regex': True,
                 'expected': '[00:00:33.666 --> 00:00:38.138] ' + red('actor') + ' as einstein: what ' + red('light') + ' would i see if i rode on a beam of ' + red('light') + '?',
             },
-            # TODO multiple videos?
+            # TODO multiple videos and link tag
         ]
         for test in tests:
             download = Download(
