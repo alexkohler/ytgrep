@@ -37,7 +37,7 @@ class Download():
 
         output = ''
         for url in self.urls:
-            result = self.get_result(url, self.search_query)
+            result = self.get_result(url)
             if result != 0:
                 raise Exception(
                     'Unable to download and extract captions: {0}'.format(result))
@@ -52,7 +52,7 @@ class Download():
             output = output[:-1] 
         return output
 
-    def get_result(self, video_id: str, search_query: str) -> int:
+    def get_result(self, video_id: str) -> int:
         self.opts['outtmpl'] = 'subtitle_' + \
             hashlib.md5(str(video_id).encode('utf-8')).hexdigest()
         with youtube_dl.YoutubeDL(self.opts) as ydl:
@@ -115,7 +115,7 @@ class Download():
                     if self.include_links:
                         start_time = prefix[1:9]
                         time_url = self.get_time_url(url, start_time)
-                        stripped = stripped.rstrip() + ' (' + time_url + ')\n'
+                        stripped = stripped.rstrip() + ' (' + time_url + ')'
                     temp_final += stripped
 
             elif self.search_query in stripped:
@@ -143,7 +143,7 @@ class Download():
                 if self.include_links:
                     start_time = prefix[1:9]
                     time_url = self.get_time_url(url, start_time)
-                    stripped = stripped.rstrip() + ' (' + time_url + ')\n'
+                    stripped = stripped.rstrip() + ' (' + time_url + ')'
                 temp_final += stripped + '\n'
 
         return temp_final
