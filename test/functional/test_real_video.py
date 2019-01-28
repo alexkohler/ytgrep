@@ -2,7 +2,7 @@
 
 import unittest
 from ytcc.download import Download, DownloadException
-from colorama import Fore, Back, Style
+from colorama import Fore, Style
 
 
 def red(input):

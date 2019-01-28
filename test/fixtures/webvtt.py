@@ -31,5 +31,3 @@ ACTOR AS EINSTEIN:
 What light would I see if I rode
 on a beam of light?
 """
-
-FIXTURE_WEBVTT_STRIPPED = "MAN: When we think of E equals m c-squared, we have this vision of Einstein as an old, wrinkly man with white hair. MAN 2: E equals m c-squared is not about an old Einstein. It's actually about a young, energetic, dynamic, even a sexy Einstein. ACTOR AS EINSTEIN: What would I see if I rode on a beam of light?"

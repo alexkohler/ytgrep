@@ -3,8 +3,8 @@
 import unittest
 from ytcc.download import Download
 from unittest.mock import patch, mock_open, Mock
-from test.fixtures.webvtt import FIXTURE_WEBVTT, FIXTURE_WEBVTT_STRIPPED
-from colorama import Fore, Back, Style
+from test.fixtures.webvtt import FIXTURE_WEBVTT
+from colorama import Fore, Style
 
 
 def red(input):

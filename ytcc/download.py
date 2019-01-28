@@ -4,9 +4,8 @@ from pycaption import WebVTTReader
 from os import remove
 import re
 import hashlib
-from urllib.parse import urlencode
 from ytcc.storage import Storage
-from colorama import Fore, Back, Style
+from colorama import Fore, Style
 
 
 class Download():
