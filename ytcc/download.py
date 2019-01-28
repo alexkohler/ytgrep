@@ -49,7 +49,7 @@ class Download():
 
         # remove final newline
         if len(output) > 0 and output[-1] == '\n':
-            output = output[:-1] 
+            output = output[:-1]
         return output
 
     def get_result(self, video_id: str) -> int:

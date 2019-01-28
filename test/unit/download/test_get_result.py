@@ -13,7 +13,12 @@ class TestGetResult(unittest.TestCase):
         ydl.download = Mock(return_value=0)
 
         with patch('youtube_dl.YoutubeDL.__enter__', return_value=ydl):
-            download = Download({'urls': ['http://www.youtube.com/watch?v=we342oij234'], 'pattern': 'asdf', 'e': False, 'v': False})
+            download = Download(
+                {
+                    'urls': ['http://www.youtube.com/watch?v=we342oij234'],
+                    'pattern': 'asdf',
+                    'e': False,
+                    'v': False})
             self.assertEqual(0, download.get_result(video_id))
             ydl.download.assert_called_with(
                 ['we342oij234'])
