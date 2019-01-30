@@ -18,7 +18,7 @@ class Download():
         self.opts = {
             'skip_download': True,
             'writeautomaticsub': True,
-            'no_warnings': args['v'],
+            'no_warnings': not args['v'],
             'quiet': not args['v'],
         }
         self.urls = args['urls']
@@ -42,10 +42,17 @@ class Download():
                     'Unable to download and extract captions: {0}'.format(result))
             storage = Storage(url)
             file_path = storage.get_file_path()
-            with open(file_path) as f:
-                output += self.get_captions_from_output(f.read(), url)
-            storage.remove_file()
-
+            try:
+                with open(file_path) as f:
+                    output += self.get_captions_from_output(f.read(), url)
+                    storage.remove_file()
+            except FileNotFoundError:
+                if len(self.urls) == 1:
+                    raise NoCaptionsException("no captions found.")
+                else:
+                    # TODO make this orange like the youtube-dl warnings
+                    print("WARNING: no captions found for {}".format(url))
+        
         # remove final newline
         if len(output) > 0 and output[-1] == '\n':
             output = output[:-1]
@@ -158,6 +165,11 @@ class Download():
 
 
 class DownloadException(Exception):
+
+    def __init__(self, *args, **kwargs):
+        Exception.__init__(self, *args, **kwargs)
+
+class NoCaptionsException(Exception):
 
     def __init__(self, *args, **kwargs):
         Exception.__init__(self, *args, **kwargs)
