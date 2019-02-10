@@ -6,16 +6,16 @@ from setuptools import setup, find_packages
 with open('LICENSE') as f:
     license = f.read()
 
-with open('README.rst') as f:
+with open('README.md') as f:
     readme = f.read()
 
 setup(
-    name='Youtube Closed Captions',
-    version='0.1.1',
-    description='Download closed captions from Youtube',
+    name='ytgrep',
+    version='0.1.0',
+    description='CLI tool to search youtube captions',
     long_description=readme,
-    author='Mike Lay',
-    author_email='mike@mkly.io',
+    author='Alex Kohler',
+    author_email='alexjohnkohler@gmail.com',
     license=license,
     packages=find_packages(exclude=('test')),
     classifiers=[

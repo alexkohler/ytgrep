@@ -1,3 +1,6 @@
 __pycache__/
 .vscode/
 *.py[cod]
+dist/
+build/
+ytgrep.egg-info/

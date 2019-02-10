@@ -1,4 +1,0 @@
-## ytgrep
-
-* Currently only performs case insensitive searches. This could potentially be configurable in the future
-* Any URLs that youtube-dl supports, this should also support

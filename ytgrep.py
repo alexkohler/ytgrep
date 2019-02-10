@@ -21,9 +21,6 @@ parser.add_argument('urls', nargs='+', help='video URL(s)')
 args = parser.parse_args()
 args_dict = vars(args)
 
-# TODO case insensitivity?
-# TOOD unit tests
-
 download = Download(args_dict)
 try:
     captions = download.get_captions()

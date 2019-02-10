@@ -1,30 +1,26 @@
-Youtube Closed Captions
+ytgrep
 -----------------------
 
-Downloads the closed captions(subtitles) from Youtube videos
-============================================================
+ytgrep is a CLI tool to search youtube closed captions with a grep-like interface
 
 Requirements
-~~~~~~~~~~~~
+===========
 
-* Currently requires python >= 3.5 but will likely change to 2.7 soon
+* Requires python >= 3.5
 
-To Use
-~~~~~~
+Installation
+===========
+.. code:: bash
+    
+    pip install ytgrep
 
-.. code:: python
-
-   from ytcc.download import Download
-
-   video_id = 'jNQXAC9IVRw'
-   download = Download()
-   captions = download.get_captions(video_id)
+Usage
+===========
 
 
-Known Issues
-============
+.. code:: bash
 
-This is currently just written for the English(en-US) language as that is what my use case required. Definitely would love to see it support all languages
+
 
 Development
 ===========
@@ -45,3 +41,12 @@ Run Tests
    ## Functional tests
    python -m unittest discover test/functional
 
+Related projects
+============
+ * youtube-closed-captions - This project used this library as a starting point https://github.com/mkly/youtube-closed-captions
+ * videogrep - get supercuts of video matching provided seach terms
+    
+
+TODO
+============
+* Supporting languages other than English
