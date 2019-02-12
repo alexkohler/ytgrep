@@ -17,7 +17,6 @@ Installation
 Usage
 ===========
 
-
 .. code:: bash
 
 
@@ -50,3 +49,4 @@ Related projects
 TODO
 ============
 * Supporting languages other than English
+* -e '*' breaks ytgrep
