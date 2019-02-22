@@ -10,7 +10,6 @@ from colorama import Fore, Style
 def red(input):
     return Fore.RED + input + Style.RESET_ALL
 
-
 class TestCaptions(unittest.TestCase):
 
     def test_caption(self):
