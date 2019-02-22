@@ -49,5 +49,5 @@ Related projects
 TODO
 ============
 * Supporting languages other than English
-* -e '*' breaks ytgrep
+* -e '*' breaks ytgrep - appears to be applying red more than once
 * Run coverage and see if any tests are missing
