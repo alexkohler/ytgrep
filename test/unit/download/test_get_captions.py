@@ -20,6 +20,7 @@ class TestCaptions(unittest.TestCase):
                 'urls': ['https://www.swag.com/'],
                 'pattern': 'vision',
                 'regex': False,
+                'links': False,
                 'expected': '[00:00:17.350 --> 00:00:18.752] we have this ' + red('vision') + ' of einstein'
             },
             {
@@ -27,6 +28,7 @@ class TestCaptions(unittest.TestCase):
                 'urls': ['https://www.swag.com/'],
                 'pattern': 'iwontbefound',
                 'regex': False,
+                'links': False,
                 'expected': '',
             },
             {
@@ -34,6 +36,7 @@ class TestCaptions(unittest.TestCase):
                 'urls': ['https://www.swag.com/'],
                 'pattern': 'light',
                 'regex': False,
+                'links': False,
                 'expected': '[00:00:33.666 --> 00:00:38.138] actor as einstein: what ' + red('light') + ' would i see if i rode on a beam of ' + red('light') + '?',
             },
             {
@@ -41,13 +44,22 @@ class TestCaptions(unittest.TestCase):
                 'urls': ['https://www.swag.com/'],
                 'pattern': 'actor|light',
                 'regex': True,
+                'links': False,
                 'expected': '[00:00:33.666 --> 00:00:38.138] ' + red('actor') + ' as einstein: what ' + red('light') + ' would i see if i rode on a beam of ' + red('light') + '?',
+            },
+            {
+                'name': '1 video, 1 link',
+                'urls': ['https://www.swag.com/'],
+                'pattern': 'actor|light',
+                'regex': True,
+                'links': True,
+                'expected': '[00:00:33.666 --> 00:00:38.138] ' + red('actor') + ' as einstein: what ' + red('light') + ' would i see if i rode on a beam of ' + red('light') + '? (https://www.swag.com/&t=33s)',
             },
             # TODO multiple videos and link tag
         ]
         for test in tests:
             download = Download(
-                {'urls': test['urls'], 'pattern': test['pattern'], 'e': test['regex'], 'v': False})
+                {'urls': test['urls'], 'pattern': test['pattern'], 'e': test['regex'], 'v': False, 'links' : test['links']})
             m = mock_open(read_data=FIXTURE_WEBVTT)
 
             with patch('ytcc.download.open', m, create=True):

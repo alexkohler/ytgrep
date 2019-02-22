@@ -100,8 +100,6 @@ class Download():
         i = -1
         for caption in captions:
             i += 1
-            # TODO figure out whether case insensitivity is something you want
-            # to support
             stripped = caption.lower()
             # temporarily remove time prefix via slicing (the time prefix is
             # stable)

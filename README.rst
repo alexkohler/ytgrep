@@ -50,3 +50,4 @@ TODO
 ============
 * Supporting languages other than English
 * -e '*' breaks ytgrep
+* Run coverage and see if any tests are missing
