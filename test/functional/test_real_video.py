@@ -27,7 +27,7 @@ class TestRealVideo(unittest.TestCase):
             {'urls': ['12323123123'], 'pattern': 'elephants', 'e': False, 'v': False})
         with self.assertRaises(DownloadException):
             self.download.get_captions()
-    
+
     def test_video_no_captions(self):
         self.download = Download(
             {
@@ -37,7 +37,6 @@ class TestRealVideo(unittest.TestCase):
                 'v': False})
         with self.assertRaises(NoCaptionsException):
             self.download.get_captions()
-
 
 
 class TestMultipleRealVideos(unittest.TestCase):
@@ -57,7 +56,6 @@ https://www.youtube.com/watch?v=jNQXAC9IVRw
 [00:00:01.300 --> 00:00:04.400] all right, so here we are in front of the elephants,"""
         expected = expected.replace('elephants', red('elephants'))
         self.assertEqual(expected, self.download.get_captions())
-    
 
     def test_video_one_missing_captions(self):
         self.download = Download(

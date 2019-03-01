@@ -52,7 +52,7 @@ class Download():
                 else:
                     # TODO make this orange like the youtube-dl warnings
                     print("WARNING: no captions found for {}".format(url))
-        
+
         # remove final newline
         if len(output) > 0 and output[-1] == '\n':
             output = output[:-1]
@@ -166,6 +166,7 @@ class DownloadException(Exception):
 
     def __init__(self, *args, **kwargs):
         Exception.__init__(self, *args, **kwargs)
+
 
 class NoCaptionsException(Exception):
 

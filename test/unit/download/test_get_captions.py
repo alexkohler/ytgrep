@@ -7,8 +7,10 @@ from test.fixtures.webvtt import FIXTURE_WEBVTT
 from colorama import Fore, Style
 from ytcc.download import NoCaptionsException
 
+
 def red(input):
     return Fore.RED + input + Style.RESET_ALL
+
 
 class TestCaptions(unittest.TestCase):
 
@@ -57,8 +59,11 @@ class TestCaptions(unittest.TestCase):
             # TODO multiple videos and link tag
         ]
         for test in tests:
-            download = Download(
-                {'urls': test['urls'], 'pattern': test['pattern'], 'e': test['regex'], 'v': False, 'links' : test['links']})
+            download = Download({'urls': test['urls'],
+                                 'pattern': test['pattern'],
+                                 'e': test['regex'],
+                                 'v': False,
+                                 'links': test['links']})
             m = mock_open(read_data=FIXTURE_WEBVTT)
 
             with patch('ytcc.download.open', m, create=True):
@@ -70,15 +75,18 @@ class TestCaptions(unittest.TestCase):
 
     def test_caption_captions_do_not_exist(self):
         test = {
-                'name': 'captions do not exist',
-                'urls': ['https://www.swag.com/'],
-                'pattern': 'my pattern',
-                'regex': False,
-                'links': False,
-            }
+            'name': 'captions do not exist',
+            'urls': ['https://www.swag.com/'],
+            'pattern': 'my pattern',
+            'regex': False,
+            'links': False,
+        }
 
-        download = Download(
-            {'urls': test['urls'], 'pattern': test['pattern'], 'e': test['regex'], 'v': False, 'links' : test['links']})
+        download = Download({'urls': test['urls'],
+                             'pattern': test['pattern'],
+                             'e': test['regex'],
+                             'v': False,
+                             'links': test['links']})
         m = mock_open(read_data=FIXTURE_WEBVTT)
         m.side_effect = FileNotFoundError
 
