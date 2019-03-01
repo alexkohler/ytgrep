@@ -5,7 +5,7 @@ from ytcc.download import Download
 from unittest.mock import patch, mock_open, Mock
 from test.fixtures.webvtt import FIXTURE_WEBVTT
 from colorama import Fore, Style
-
+from ytcc.download import NoCaptionsException
 
 def red(input):
     return Fore.RED + input + Style.RESET_ALL
@@ -67,3 +67,23 @@ class TestCaptions(unittest.TestCase):
                     actual = download.get_captions()
                     expected = test['expected']
                     self.assertEqual(actual, expected)
+
+    def test_caption_captions_do_not_exist(self):
+        test = {
+                'name': 'captions do not exist',
+                'urls': ['https://www.swag.com/'],
+                'pattern': 'my pattern',
+                'regex': False,
+                'links': False,
+            }
+
+        download = Download(
+            {'urls': test['urls'], 'pattern': test['pattern'], 'e': test['regex'], 'v': False, 'links' : test['links']})
+        m = mock_open(read_data=FIXTURE_WEBVTT)
+        m.side_effect = FileNotFoundError
+
+        with patch('ytcc.download.open', m, create=True):
+            with patch('ytcc.storage.Storage.remove_file', Mock()):
+                download.get_result = Mock(return_value=0)
+                with self.assertRaises(NoCaptionsException):
+                    download.get_captions()

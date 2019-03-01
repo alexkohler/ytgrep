@@ -31,9 +31,6 @@ try:
 except Exception as err:
     print("Unable to retrieve captions, {}".format(err))
 
-#TODO handle exception where video has no subtitles
-
-
 # related project: https://github.com/antiboredom/videogrep
 # caption downloading:
 # https://github.com/mkly/youtube-closed-captions/tree/master/ytcc
