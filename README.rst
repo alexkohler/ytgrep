@@ -45,10 +45,18 @@ Flags
 More examples
 =============
 
+Search with regular expression
+
+.. code:: bash
+    ytgrep -e 'banana|potassium' https://www.youtube.com/watch?v=OIYOshsEqmQ
+
+
 Search multiple urls
+
 .. code:: bash
 
-    ytgrep 'bananas' https://www.youtube.com/watch?v=G0PQrCwol6g
+    ytgrep 'banana' https://www.youtube.com/watch?v=LH5ay10RTGY https://www.youtube.com/watch?v=zFQWVN4xip0
+    
 
 
 Development
@@ -74,10 +82,3 @@ Related projects
 ==================
  * youtube-closed-captions - This project used this library as a starting point https://github.com/mkly/youtube-closed-captions
  * videogrep - get supercuts of video matching provided seach terms
-    
-
-TODO
-============
-* Supporting languages other than English
-* -e '*' breaks ytgrep - appears to be applying red more than once
-* Run coverage and see if any tests are missing
