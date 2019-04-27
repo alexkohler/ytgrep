@@ -45,17 +45,26 @@ Flags
 More examples
 =============
 
+Include shortcut links to times where keywords were mentioned
+
+.. code:: bash
+    
+    $ ytgrep -links 'potassium' https://www.youtube.com/watch?v=OIYOshsEqmQ
+
 Search with regular expression
 
 .. code:: bash
-    ytgrep -e 'banana|potassium' https://www.youtube.com/watch?v=OIYOshsEqmQ
 
+    ytgrep -e 'banana|potassium' https://www.youtube.com/watch?v=OIYOshsEqmQ
+    
 
 Search multiple urls
 
 .. code:: bash
 
     ytgrep 'banana' https://www.youtube.com/watch?v=LH5ay10RTGY https://www.youtube.com/watch?v=zFQWVN4xip0
+    
+
     
 
 
