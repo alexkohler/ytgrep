@@ -4,22 +4,6 @@ ytgrep
 ytgrep is a CLI tool to search youtube closed captions with a grep-like interface.
 
 
-Purpose
-=============
-ytgrep is particularly useful whilst looking for particular topic or keywords in a video. For example, suppose you are 
-interested in learning more about Breadth First Search. Rather than watching MIT Open Courseware's entire 50 minute video,
-you can do the following with ytgrep:
-
-
-.. code:: bash
-
-    python ytgrep.py 'bfs' https://www.youtube.com/watch?v=s-CYnVz-uh4
-    [00:46:22.109 --> 00:46:24.170] compute this shortest we compute this path out of bfs which is follow a parent
-    [00:46:24.170 --> 00:46:24.180] path out of bfs which is follow a parent
-    [00:46:24.180 --> 00:46:26.450] path out of bfs which is follow a parent of v is c prime of c is x parent of x is
-    [00:47:25.799 --> 00:47:28.459] the shortest path thats the cool thing about bfs yeah bfs explores of vertices"
-
-
 Requirements
 =============
 
@@ -27,9 +11,22 @@ Requirements
 
 Installation
 =============
+
 .. code:: bash
     
     pip install ytgrep
+
+Purpose
+=============
+ytgrep is particularly useful whilst looking for particular topic or keywords mentioned in a video.
+
+    For example, searching for the word 'topoloigcal sort' in `MIT's Open Courseware Lecture on DFS and topological sort <https://www.youtube.com/watch?v=AfSk24UTFS8>`__:
+
+|image0|
+
+.. |image0| image:: https://asciinema.org/a/SjG0XTmIPzDfNgx2SxwhCdXwt.svg
+   :target: https://asciinema.org/a/SjG0XTmIPzDfNgx2SxwhCdXwt
+   
 
 Usage
 ==============
@@ -47,6 +44,11 @@ Flags
 
 More examples
 =============
+
+Search multiple urls
+.. code:: bash
+
+    ytgrep 'bananas' https://www.youtube.com/watch?v=G0PQrCwol6g
 
 
 Development
