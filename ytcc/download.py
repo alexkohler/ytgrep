@@ -50,7 +50,6 @@ class Download():
                 if len(self.urls) == 1:
                     raise NoCaptionsException("no captions found.")
                 else:
-                    # TODO make this orange like the youtube-dl warnings
                     print("WARNING: no captions found for {}".format(url))
 
         # remove final newline
@@ -120,7 +119,7 @@ class Download():
                         start_time = prefix[1:9]
                         time_url = self.get_time_url(url, start_time)
                         stripped = stripped.rstrip() + ' (' + time_url + ')'
-                    temp_final += stripped
+                    temp_final += stripped + '\n'
 
             elif self.search_query in stripped:
 
