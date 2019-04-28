@@ -1,7 +1,9 @@
-ytgrep
+ytgrep 
 -----------------------
+.. image:: https://travis-ci.com/alexkohler/ytgrep.svg?branch=master
+    :target: https://travis-ci.com/alexkohler/ytgrep
 
-ytgrep is a CLI tool to search youtube closed captions with a grep-like interface.
+ytgrep is a CLI tool to search Youtube closed captions with a grep-like interface.
 
 
 Requirements
@@ -20,7 +22,7 @@ Purpose
 =============
 ytgrep is particularly useful whilst looking for particular topic or keywords mentioned in a video.
 
-    For example, searching for the word 'topoloigcal sort' in `MIT's Open Courseware Lecture on DFS and topological sort <https://www.youtube.com/watch?v=AfSk24UTFS8>`__:
+For example, searching for the word 'topoloigcal sort' in `MIT's Open Courseware Lecture on DFS and topological sort <https://www.youtube.com/watch?v=AfSk24UTFS8>`__:
 
 |image0|
 
