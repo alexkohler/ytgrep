@@ -12,7 +12,7 @@ with open('requirements.txt') as f:
 
 setup(
     name='ytgrep',
-    version='0.4.6',
+    version='0.4.7',
     description='CLI tool to search youtube captions',
     long_description=readme,
     author='Alex Kohler',
