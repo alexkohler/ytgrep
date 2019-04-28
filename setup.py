@@ -3,24 +3,27 @@
 
 from setuptools import setup, find_packages
 
-with open('LICENSE') as f:
-    license = f.read()
-
-with open('README.md') as f:
+with open('README.rst') as f:
     readme = f.read()
+    
+with open('requirements.txt') as f:
+    required = f.read().splitlines()
+ 
 
 setup(
     name='ytgrep',
-    version='0.1.0',
+    version='0.4.6',
     description='CLI tool to search youtube captions',
     long_description=readme,
     author='Alex Kohler',
     author_email='alexjohnkohler@gmail.com',
-    license=license,
     packages=find_packages(exclude=('test')),
+    py_modules=['ytgrep'],
+    entry_points={
+        "console_scripts": ['ytgrep = ytgrep:main']
+    },
+    install_requires=required,
     classifiers=[
-        'Development Status :: 3 - Alpha',
-        'Programming Language :: Python :: 3.5',
-        'License :: OSI Approved :: Apache Software License'
+        'Programming Language :: Python :: 3.7',
     ]
 )

@@ -45,7 +45,7 @@ Flags
 More examples
 =============
 
-Include shortcut links to times where keywords were mentioned
+Include timestamped links (e.g. <youtube URL>/&t=196s) to jump directly to part in video where keyword was mentioned.
 
 .. code:: bash
     
