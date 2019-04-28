@@ -21,7 +21,7 @@ class TestRealVideo(unittest.TestCase):
         expected = '[00:00:01.300 --> 00:00:04.400] all right, so here we are in front of the ' + \
             red('elephants') + ','
         self.assertEqual(expected, self.download.get_captions())
-        
+
     def test_video_multiline_match_with_regexp(self):
         self.download = Download(
             {
@@ -29,7 +29,8 @@ class TestRealVideo(unittest.TestCase):
                 'pattern': 'cool',
                 'e': True,
                 'v': False})
-        expected = '[00:00:04.400 --> 00:00:09.166] the ' + red('cool') + ' thing about these guys is that they have really,\n[00:00:12.700 --> 00:00:17.000] and thats, thats ' + red('cool') + '."'
+        expected = '[00:00:04.400 --> 00:00:09.166] the ' + red(
+            'cool') + ' thing about these guys is that they have really,\n[00:00:12.700 --> 00:00:17.000] and thats, thats ' + red('cool') + '."'
         self.assertEqual(expected, self.download.get_captions())
 
     def test_video_does_not_exist(self):
