@@ -8,7 +8,7 @@ with open('README.rst') as f:
 
 setup(
     name='ytgrep',
-    version='0.4.9',
+    version='0.5.0',
     description='CLI tool to search youtube captions',
     long_description=readme,
     author='Alex Kohler',

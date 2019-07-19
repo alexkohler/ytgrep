@@ -83,6 +83,9 @@ class Download():
                 url, str(caption).replace(r'\n', " "))
             stripped += "\n"
             captions.append(stripped)
+            
+        if self.search_query == '':
+            return ''.join(item for item in captions)
 
         return self.process_captions(captions, url)
 
